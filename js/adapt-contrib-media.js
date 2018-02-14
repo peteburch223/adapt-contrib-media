@@ -53,12 +53,11 @@ define([
             });
 
             if (this.model.get('_media').source) {
+                // Remove the protocol for streaming service.
+                // This prevents conflicts with HTTP/HTTPS
                 var media = this.model.get('_media');
 
-                // Avoid loading of Mixed Content (insecure content on a secure page)
-                if (window.location.protocol === 'https:' && media.source.indexOf('http:') === 0) {
-                    media.source = media.source.replace(/^http\:/, 'https:');
-                }
+                media.source = media.source.replace(/^https?\:/, "");
 
                 this.model.set('_media', media);
             }
@@ -81,7 +80,7 @@ define([
                 if (this.model.get('_useClosedCaptions')) {
                     modelOptions.features.unshift('tracks');
                 }
-                if (this.model.get("_allowFullScreen")) {
+                if (this.model.get("_allowFullScreen") && !$("html").is(".ie9")) {
                     modelOptions.features.push('fullscreen');
                 }
                 if (this.model.get('_showVolumeControl')) {
@@ -148,15 +147,13 @@ define([
                     modelOptions.hideVideoControlsOnLoad = true;
                     modelOptions.features = [];
                     if (froogaloopAdded) return callback();
-                    $.getScript("assets/froogaloop.js")
-                        .done(function() {
+                    Modernizr.load({
+                        load: "assets/froogaloop.js",
+                        complete: function() {
                             froogaloopAdded = true;
                             callback();
-                        })
-                        .fail(function() {
-                            froogaloopAdded = false;
-                            console.log('Could not load froogaloop.js');
-                        });
+                        }
+                    });
                     break;
                 default:
                     callback();
@@ -177,8 +174,8 @@ define([
                     'timeupdate': this.onMediaElementTimeUpdate
                 });
             }
-            
-            // handle other completion events in the event Listeners 
+
+            // handle other completion events in the event Listeners
             $(this.mediaElement).on({
             	'play': this.onMediaElementPlay,
             	'pause': this.onMediaElementPause,
@@ -194,7 +191,7 @@ define([
                 '_isMediaPlaying': true,
                 '_isMediaEnded': false
             });
-            
+
             if (this.completionEvent === 'play') {
                 this.setCompletionStatus();
             }
@@ -211,7 +208,7 @@ define([
                 this.setCompletionStatus();
             }
         },
-        
+
         onMediaElementSeeking: function(event) {
             var maxViewed = this.model.get("_maxViewed");
             if(!maxViewed) {
@@ -254,7 +251,7 @@ define([
             // pause on player click
             this.$('.mejs-mediaelement').on("click", this.onMediaElementClick);
         },
-        
+
         onMediaStop: function(view) {
 
             // Make sure this view isn't triggering media:stop
@@ -262,7 +259,7 @@ define([
 
             var player = this.mediaElement.player;
             if (!player) return;
-            
+
             player.pause();
         },
 
@@ -323,6 +320,12 @@ define([
                 }
             }
 
+            if ($("html").is(".ie8")) {
+                var obj = this.$("object")[0];
+                if (obj) {
+                    obj.style.display = "none";
+                }
+            }
             if (this.mediaElement && this.mediaElement.player) {
                 var player_id = this.mediaElement.player.id;
 
@@ -378,6 +381,11 @@ define([
 
             this.setReadyStatus();
             this.setupEventListeners();
+
+            if(this.model.get('_autoPlay'))
+            {
+              this.onOverlayClick();
+            }
         },
 
         addThirdPartyAfterFixes: function() {
