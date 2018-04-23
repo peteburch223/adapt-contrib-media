@@ -32,8 +32,8 @@ define([
     var Media = ComponentView.extend({
 
         events: {
-            "click .media-inline-transcript-button": "onToggleInlineTranscript",
-            "click .media-external-transcript-button": "onExternalTranscriptClicked"
+            "click .conciseMedia-inline-transcript-button": "onToggleInlineTranscript",
+            "click .conciseMedia-external-transcript-button": "onExternalTranscriptClicked"
         },
 
         preRender: function() {
@@ -119,7 +119,7 @@ define([
                 // We're streaming - set ready now, as success won't be called above
                 try {
                     if (this.model.get('_media').source) {
-                        this.$('.media-widget').addClass('external-source');
+                        this.$('.conciseMedia-widget').addClass('external-source');
                     }
                 } catch (e) {
                     console.log("ERROR! No _media property found in components.json for component " + this.model.get('_id'));
@@ -133,7 +133,7 @@ define([
             var media = this.model.get("_media");
             if (media && media.type) {
                 var typeClass = media.type.replace(/\//, "-");
-                this.$(".media-widget").addClass(typeClass);
+                this.$(".conciseMedia-widget").addClass(typeClass);
             }
         },
 
@@ -406,8 +406,8 @@ define([
 
         onToggleInlineTranscript: function(event) {
             if (event) event.preventDefault();
-            var $transcriptBodyContainer = this.$(".media-inline-transcript-body-container");
-            var $button = this.$(".media-inline-transcript-button");
+            var $transcriptBodyContainer = this.$(".conciseMedia-inline-transcript-body-container");
+            var $button = this.$(".conciseMedia-inline-transcript-button");
 
             if ($transcriptBodyContainer.hasClass("inline-transcript-open")) {
                 $transcriptBodyContainer.stop(true,true).slideUp(function() {

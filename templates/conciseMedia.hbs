@@ -1,6 +1,6 @@
-<div class="media-inner component-inner" role="region" aria-label="{{_globals._components._media.ariaRegion}} {{#if _media.transcriptLink}}{{_globals._components._media.transcriptButton}}{{/if}}" {{#if _globals._components._media.ariaRegion}}tabindex="0"{{/if}}>
+<div class="conciseMedia-inner component-inner" role="region" aria-label="{{_globals._components._media.ariaRegion}} {{#if _media.transcriptLink}}{{_globals._components._media.transcriptButton}}{{/if}}" {{#if _globals._components._media.ariaRegion}}tabindex="0"{{/if}}>
     {{> component this}}
-    <div class="media-widget component-widget a11y-ignore-aria">
+    <div class="conciseMedia-widget component-widget a11y-ignore-aria">
 
     {{#if _media.mp3}}
       <audio src="{{_media.mp3}}" type="audio/mp3" style="width: 100%; height: 100%;"/>
@@ -32,11 +32,11 @@
     {{/if}}
     </div>
     {{#if _transcript}}
-    <div class="media-transcript-container">
+    <div class="conciseMedia-transcript-container">
 
-      <div class="media-transcript-button-container">
+      <div class="conciseMedia-transcript-button-container">
         {{#if _transcript._inlineTranscript}}
-          <button class="media-inline-transcript-button button" role="button">
+          <button class="conciseMedia-inline-transcript-button button" role="button">
             <div class="transcript-text-container">
               {{#if _transcript.inlineTranscriptButton}}
                 {{_transcript.inlineTranscriptButton}}
@@ -60,8 +60,8 @@
         </div>
 
         {{#if _transcript._inlineTranscript}}
-          <div class="media-inline-transcript-body-container">
-            <div class="media-inline-transcript-body">
+          <div class="conciseMedia-inline-transcript-body-container">
+            <div class="conciseMedia-inline-transcript-body">
             {{{a11y_text _transcript.inlineTranscriptBody}}}
             </div>
           </div>
