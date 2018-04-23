@@ -1,4 +1,4 @@
-.media-component {
+.conciseMedia-component {
 
     .me-plugin {
         position:relative;
@@ -14,7 +14,7 @@
         }
     }
 
-    .media-widget.video-vimeo {
+    .conciseMedia-widget.video-vimeo {
         .mejs-controls {
             display: none !important;
             height: 0px !important;
@@ -51,7 +51,7 @@
         }
     }
 
-    .media-transcript {
+    .conciseMedia-transcript {
         padding: @button-padding;
         display: block;
         color: @button-text-color;
@@ -63,24 +63,24 @@
         }
     }
 
-    .media-inline-transcript-body-container {
+    .conciseMedia-inline-transcript-body-container {
         margin-top: 10px;
         display: none;
     }
 
-    .media-inline-transcript-body {
+    .conciseMedia-inline-transcript-body {
         padding: @component-padding;
     }
 
-    .media-transcript-button-container {
+    .conciseMedia-transcript-button-container {
         padding:1px;
     }
 
-    .media-external-transcript-button, .media-inline-transcript-button {
+    .conciseMedia-external-transcript-button, .conciseMedia-inline-transcript-button {
         width:100%;
         display:block;
     }
-    
+
     // Bug Fix for touch devices to override standard hover event in mep.less L119
     // ==============================
     .mejs-overlay {
@@ -133,7 +133,7 @@
             background-image: url(../../assets/controls.svg);
         }
     }
-    
+
     .accessibility.no-touch & {
         .mejs-controls .mejs-button {
             button:focus {
@@ -156,6 +156,6 @@
 
 
 //for use when no title or body or instruction is available
-.media-top-padding {
+.conciseMedia-top-padding {
     padding-top: 4em;
 }

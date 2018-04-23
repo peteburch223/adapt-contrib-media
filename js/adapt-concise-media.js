@@ -463,7 +463,7 @@ define([
 
     });
 
-    Adapt.register('media', Media);
+    Adapt.register('conciseMedia', Media);
 
     return Media;
 
